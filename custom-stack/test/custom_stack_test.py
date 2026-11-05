@@ -1,0 +1,33 @@
+import pytest
+from src.custom_stack_class import CustomStack, StackEmptyException, StackFullException
+
+def test_push_one_element_in_stack():
+    element_value = 5.0
+    cut = CustomStack(5)
+    cut.push(element_value)
+    assert cut.is_empty() == False
+    assert element_value == cut.top()
+    assert 1 == cut.size()
+
+def test_pop_element():
+    cut = CustomStack(2)
+    cut.push(10.0)
+    cut.push(20.0)
+    assert cut.pop() == 20.0
+    assert cut.size() == 1
+
+def test_stack_empty_exception_on_pop():
+    cut = CustomStack(2)
+    with pytest.raises(StackEmptyException):
+        cut.pop()
+
+def test_stack_empty_exception_on_top():
+    cut = CustomStack(2)
+    with pytest.raises(StackEmptyException):
+        cut.top()
+
+def test_stack_full_exception():
+    cut = CustomStack(1)
+    cut.push(10.0)
+    with pytest.raises(StackFullException):
+        cut.push(20.0)
